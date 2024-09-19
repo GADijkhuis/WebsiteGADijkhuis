@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:website_gadijkhuis/launcher.dart';
@@ -10,8 +11,9 @@ void main() {
 class App extends StatelessWidget {
   App({super.key});
 
-  static double baseContainerPadding = 40;
   static Color primaryIconColor = Colors.white;
+  static double baseContainerPadding = 40;
+  static double baseWidgetSpacing = 60;
   static double baseContainerGap = 20;
   static double baseWidgetGap = 10;
   static double containerWidth = 0;
@@ -44,6 +46,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool floatingActionButtonExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,19 +59,33 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.spaceEvenly,
+                  spacing: App.baseWidgetSpacing,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    Image.asset("profilePhoto.png", height: App.imageSize, width: App.imageSize,),
+                    Image.asset(
+                      "profilePhoto.png",
+                      height: App.imageSize,
+                      width: App.imageSize,
+                    ),
                     // SizedBox(width: App.baseWidgetGap,),
-                    Text("GADijkhuis", style: TextStyle(fontSize: App.headerFontSize, fontWeight: FontWeight.bold),),
+                    Text(
+                      "GADijkhuis",
+                      style: TextStyle(
+                          fontSize: App.headerFontSize,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
-
-                SizedBox(height: App.baseContainerGap,),
+                SizedBox(
+                  height: App.baseContainerGap,
+                ),
                 Text(
                   'About Me:',
-                  style: TextStyle(fontSize: App.titleFontSize, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: App.titleFontSize, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   WebText.aboutMe(),
@@ -76,7 +94,8 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: App.baseContainerGap),
                 Text(
                   'Tech Stack:',
-                  style: TextStyle(fontSize: App.titleFontSize, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: App.titleFontSize, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: App.baseWidgetGap),
                 Center(
@@ -95,7 +114,9 @@ class _HomePageState extends State<HomePage> {
                       Chip(label: Text('YAML')),
                       Chip(label: Text('Xamarin')),
                       Chip(label: Text('.NET')),
-                      Chip(label: Text('.NET MAUI'),),
+                      Chip(
+                        label: Text('.NET MAUI'),
+                      ),
                       Chip(label: Text('UWP')),
                       Chip(label: Text('WinForms')),
                       Chip(label: Text('MySQL')),
@@ -108,11 +129,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Text(
                   'Socials:',
-                  style: TextStyle(fontSize: App.titleFontSize, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: App.titleFontSize, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: App.baseWidgetGap),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Wrap(
+                  alignment: WrapAlignment.center,
                   children: [
                     IconButton(
                         icon: SvgPicture.network(
@@ -159,17 +181,62 @@ class _HomePageState extends State<HomePage> {
                         }),
                   ],
                 ),
-                SizedBox(height: App.baseContainerGap),
+                SizedBox(height: App.baseContainerGap * 2),
               ],
             ),
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Send me a message!',
-        child: const Icon(Icons.message),
+      floatingActionButton: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+        width: floatingActionButtonExpanded ? 290.0 : 56.0, // Width changes
+        height: 56.0, // Keep the height consistent with the FloatingActionButton size
+        child: floatingActionButtonExpanded
+            ? FloatingActionButton.extended(
+          onPressed: () {
+            setState(() {
+              floatingActionButtonExpanded = false;
+            });
+          },
+          heroTag: "sendMessageButton",
+          label: Row(
+            children: [
+              TextButton(
+                  onPressed: () {
+                    setState(() {
+                      floatingActionButtonExpanded = false;
+                    });
+                  },
+                  child: const Icon(Icons.close)
+              ),
+              TextButton(
+                onPressed: () {
+                  Launcher.launchURL("mailto:dijkhuis.g.a@outlook.com");
+                },
+                child: Row(
+                  children: [
+                    const Icon(Icons.mail),
+                    SizedBox(width: App.baseWidgetGap),
+                    const Text("dijkhuis.g.a@outlook.com"),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ) :
+        FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              floatingActionButtonExpanded = true;
+            });
+          },
+          heroTag: "sendMessageButton",
+          tooltip: 'Contact me!',
+          child: const Icon(Icons.message),
+        ),
       ),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
     );
   }
 }
