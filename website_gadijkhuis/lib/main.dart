@@ -38,7 +38,7 @@ class App extends StatelessWidget {
         ? 700
         : (MediaQuery.of(context).size.width - 100));
 
-    cardAspectRatio = (MediaQuery.of(context).size.width > 800) ? 21 / 9 : (1600 - MediaQuery.of(context).size.width) / (900 + (1600 - MediaQuery.of(context).size.width));
+    cardAspectRatio = (MediaQuery.of(context).size.width > 800) ? 16 / 9 : (MediaQuery.of(context).size.aspectRatio);
 
 
     return MaterialApp(

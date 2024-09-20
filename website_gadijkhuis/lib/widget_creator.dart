@@ -33,12 +33,21 @@ class WidgetCreator {
             title: Text(title),
             subtitle: Text(description),
           ),
-          if (url != "") ElevatedButton(
-              onPressed: (){
-                Launcher.launchURL(url);
-              },
-              child: const Text("Go to project")
-          )
+          if (url != "") Padding(
+              padding: EdgeInsets.all(App.cardBorderRadius),
+              child: ElevatedButton(
+                  onPressed: (){
+                    Launcher.launchURL(url);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.open_in_new),
+                      SizedBox(width: App.baseWidgetGap),
+                      const Text("Go to project")
+                    ],
+                  )
+              ),)
         ],
       ),
 
