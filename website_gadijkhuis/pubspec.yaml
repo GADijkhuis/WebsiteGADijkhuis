@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: '>=3.3.3 <4.3.0'
 
 dependencies:
   flutter:
@@ -14,7 +14,10 @@ dependencies:
   flutter_svg: ^2.0.10+1
   url_launcher: ^6.1.11
   cupertino_icons: ^1.0.6
-  carousel_slider: ^4.0.0
+  carousel_slider: ^5.0.0
+  flutter_riverpod: 1.0.0-dev.10
+  riverpod: 1.0.0-dev.10
+
 
 dev_dependencies:
   flutter_test:

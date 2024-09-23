@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:website_gadijkhuis/launcher.dart';
 import 'package:website_gadijkhuis/web_text.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:website_gadijkhuis/widget_creator.dart';
 
 
