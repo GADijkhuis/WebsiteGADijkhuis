@@ -23,6 +23,7 @@ class App extends StatelessWidget {
   static double containerWidth = 0;
   static double cardAspectRatio = 0;
   static double imageSize = 200;
+  static double imageSizeSmall = 75;
   static double titleFontSize = 24;
   static double headerFontSize = 48;
   static double cardBorderRadius = 20;
@@ -79,17 +80,22 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Image.asset(
-                      "profilePhoto.png",
+                      "LogoGADijkhuisWhite.png",
                       height: App.imageSize,
                       width: App.imageSize,
                     ),
-                    // SizedBox(width: App.baseWidgetGap,),
-                    Text(
-                      "GADijkhuis",
-                      style: TextStyle(
-                          fontSize: App.headerFontSize,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "GADijkhuis",
+                          style: TextStyle(
+                              fontSize: App.headerFontSize,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )
+                    
                   ],
                 ),
                 SizedBox(height: App.baseContainerGap),
